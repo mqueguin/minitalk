@@ -1,0 +1,43 @@
+Exemple avec les operateurs binaires :
+
+128 : 10000000
+C : 67 : 01000011     On met les deux sur 8 bits
+
+premier tour :
+10000000 & 01000011
+result : 00000000
+>> 01000000
+
+deuxieme tour :
+01000000 & 01000011
+result : 01000000
+>> 00100000
+
+troisieme tour :
+00100000 & 01000011
+result : 00100000
+>> 00010000
+
+quatrieme tour :
+00010000 & 01000011
+result : 00100000
+>> 00001000
+
+cinquieme tour :
+00001000 & 01000011
+result : 01000000
+>> 00000100
+
+sizieme tour :
+00000100 & 01000011
+result : 01000000
+>> 00000010
+
+septieme tour :
+00000010 & 01000011
+result : 01000010
+>> 00000001
+
+huitieme tour :
+00000001 & 01000011
+result : 01000011
