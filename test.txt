@@ -41,3 +41,43 @@ result : 01000010
 huitieme tour :
 00000001 & 01000011
 result : 01000011
+
+afficher c
+c en ascii : 01100010
+Exemple avec operateur binaire ou | :
+buffer : 0000000000 //represente 1 caractere
+128 : 10000000
+bit == 0
+result : 00000000
+
+deuxieme tour :
+bit = 1
+01000000
+00000000 : 01000000 result : 01000000
+
+troisieme tour :
+bit = 1
+00100000 : 01000000 result : 01100000
+
+quatrieme tour : 
+bit = 0
+00010000 : 01100000 result = 01100000
+
+cinquieme tour :
+bit = 0;
+00001000 : 01100000 result = 01100000
+
+sizieme tour :
+bit = 0;
+00000100 : 01100000 result = 01100000
+
+septieme tour :
+bit = 1;
+00000010 : 01100000 result : 01100010
+
+huitieme tour :
+00000001 : 01100010 result = 01100010
+
+result = 01100010
+on remet le compteur de bit a 0;
+et on incremente l index du buffer pour traiter le caractere suivant

@@ -6,7 +6,7 @@
 /*   By: mqueguin <mqueguin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 14:31:57 by mqueguin          #+#    #+#             */
-/*   Updated: 2021/08/12 12:39:13 by mqueguin         ###   ########.fr       */
+/*   Updated: 2021/08/16 16:51:25 by mqueguin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	send_bit(int pid, unsigned char bit)
 	bit_max = 128;
 	while (bit_max)
 	{
+		usleep(100);
 		if (bit_max & bit)
 			kill(pid, SIGUSR2);
 		else
@@ -27,11 +28,24 @@ static void	send_bit(int pid, unsigned char bit)
 	}
 }
 
+void	ft_handler(int sig, siginfo_t *si, void *arg)
+{
+	(void)arg;
+	(void)sig;
+	(void)si;
+	printf("Error enfin je pense\n");
+	exit(-1);
+}
+
 int		main(int ac, char **av)
 {
 	struct	sigaction	sa;
 	int					pid;
+	int					i;
 
+	sa.sa_sigaction = ft_handler;
+	sa.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &sa, NULL);
 	if (ac != 3)
 	{
 		printf("Error\nExpected 2 arguments: pid and string\n");
@@ -40,8 +54,9 @@ int		main(int ac, char **av)
 
 	/** Ici faire fonction pour envoyer sigusr1 ou sigusr2 **/
 	pid = ft_atoi(av[1]);
-	while (*av[2])
-		send_bit(pid, *av[2]++);
+	i = -1;
+	while (av[2][++i])
+		send_bit(pid, av[2][i]);
 	send_bit(pid, '\0'); //Envoie du \0 pour signifier la fin de la chaine
 	return (0);
 }
