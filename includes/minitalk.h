@@ -26,4 +26,6 @@ typedef struct s_buffer
 	int		bit_max;
 }	t_buffer;
 
+int	ft_check_pid(char *pid);
+
 #endif

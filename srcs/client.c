@@ -37,6 +37,8 @@ int	main(int ac, char **av)
 		printf("Error\nExpected 2 arguments: pid and string\n");
 		return (-1);
 	}
+	if (!ft_check_pid(av[1]))
+			return (-1);
 	pid = ft_atoi(av[1]);
 	i = -1;
 	while (av[2][++i])

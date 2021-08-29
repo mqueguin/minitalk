@@ -19,11 +19,13 @@ BLUE = \033[0;34m
 BOLD = \033[1m
 CYAN = \x1b[36m
 
-SRCS_CLIENT			=	srcs/client.c
+SRCS_CLIENT			=	srcs/client.c\
+					srcs/check_pid.c
 
 SRCS_SERVER			=	srcs/server.c
 
-SRCS_CLIENT_BONUS	=	srcs/client_bonus.c
+SRCS_CLIENT_BONUS	=	srcs/client_bonus.c\
+				srcs/check_pid.c
 
 SRCS_SERVER_BONUS	=	srcs/server_bonus.c
 
@@ -38,10 +40,10 @@ OBJS_SERVER			=	${SRCS_SERVER:.c=.o}
 OBJS_CLIENT_BONUS	=	${SRCS_CLIENT_BONUS:.c=.o}
 OBJS_SERVER_BONUS	=	${SRCS_SERVER_BONUS:.c=.o}
 
-NAME_CLIENT			=	Client
-NAME_SERVER			=	Server
-NAME_CLIENT_BONUS	=	Client_Bonus
-NAME_SERVER_BONUS	=	Server_Bonus
+NAME_CLIENT			=	client
+NAME_SERVER			=	server
+NAME_CLIENT_BONUS	=	client_Bonus
+NAME_SERVER_BONUS	=	server_Bonus
 
 LIBFT				=	libft.a
 CC					=	gcc

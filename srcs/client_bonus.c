@@ -32,8 +32,8 @@ void	ft_handler(int sig, siginfo_t *si, void *arg)
 	(void)arg;
 	(void)sig;
 	(void)si;
-	printf("The message has been sent!\n");
-	exit(-1);
+	printf("The message has been received !\n");
+	exit(0);
 }
 
 int	main(int ac, char **av)
@@ -49,6 +49,8 @@ int	main(int ac, char **av)
 		printf("Error\nExpected 2 arguments: pid and string\n");
 		return (-1);
 	}
+	if (!ft_check_pid(pid))
+		return (-1);
 	pid = ft_atoi(av[1]);
 	i = -1;
 	while (av[2][++i])
