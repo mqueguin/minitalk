@@ -6,7 +6,7 @@
 /*   By: mqueguin <mqueguin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 14:31:57 by mqueguin          #+#    #+#             */
-/*   Updated: 2021/08/17 16:35:49 by mqueguin         ###   ########.fr       */
+/*   Updated: 2021/08/30 13:05:54 by mqueguin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,21 @@ static	void	send_bit(int pid, unsigned char bit)
 	{
 		usleep(100);
 		if ((128 >> i) & bit)
-			kill(pid, SIGUSR2);
+		{
+			if (kill(pid, SIGUSR2) != 0)
+			{
+				printf("Error\nUnable to send signal\n");
+				exit(0);
+			}
+		}
 		else
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) != 0)
+			{
+				printf("Error\nUnable to send signal\n");
+				exit(0);
+			}
+		}
 	}
 }
 

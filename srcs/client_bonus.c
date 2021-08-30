@@ -6,11 +6,11 @@
 /*   By: mqueguin <mqueguin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 14:31:57 by mqueguin          #+#    #+#             */
-/*   Updated: 2021/08/17 16:36:32 by mqueguin         ###   ########.fr       */
+/*   Updated: 2021/08/30 13:15:38 by mqueguin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minitalk_bonus.h"
+#include "minitalk.h"
 
 static	void	send_bit(int pid, unsigned char bit)
 {
@@ -21,9 +21,21 @@ static	void	send_bit(int pid, unsigned char bit)
 	{
 		usleep(100);
 		if ((32768 >> i) & bit)
-			kill(pid, SIGUSR2);
+		{
+			if (!kill(pid, SIGUSR2) != 0)
+			{
+				printf("Error\nUnable to send signal\n");
+				exit(0);
+			}
+		}
 		else
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) != 0)
+			{
+				printf("Error\nUnable to send signal\n");
+				exit(0);
+			}
+		}
 	}
 }
 
@@ -49,10 +61,11 @@ int	main(int ac, char **av)
 		printf("Error\nExpected 2 arguments: pid and string\n");
 		return (-1);
 	}
-	if (!ft_check_pid(pid))
+	if (!ft_check_pid(av[1]))
 		return (-1);
 	pid = ft_atoi(av[1]);
 	i = -1;
+	printf("Valeur de pid %d\n", pid);
 	while (av[2][++i])
 		send_bit(pid, av[2][i]);
 	send_bit(pid, '\0');

@@ -6,11 +6,11 @@
 /*   By: mqueguin <mqueguin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 12:20:10 by mqueguin          #+#    #+#             */
-/*   Updated: 2021/08/17 16:40:23 by mqueguin         ###   ########.fr       */
+/*   Updated: 2021/08/30 13:12:40 by mqueguin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minitalk_bonus.h"
+#include "minitalk.h"
 
 t_buffer	g_buffer;
 
@@ -28,7 +28,11 @@ void	ft_print(int pid_client)
 		write(1, g_buffer.buff, ft_strlen(g_buffer.buff));
 		write(1, "\n", 1);
 		ft_init();
-		kill(pid_client, SIGUSR1);
+		if (kill(pid_client, SIGUSR1) != 0)
+		{
+			printf("Error\nUnable to send signal to client\n");
+			exit(0);
+		}
 	}
 }
 
