@@ -22,7 +22,7 @@ static	void	send_bit(int pid, unsigned char bit)
 		usleep(100);
 		if ((32768 >> i) & bit)
 		{
-			if (!kill(pid, SIGUSR2) != 0)
+			if (kill(pid, SIGUSR2) != 0)
 			{
 				printf("Error\nUnable to send signal\n");
 				exit(0);
@@ -65,7 +65,6 @@ int	main(int ac, char **av)
 		return (-1);
 	pid = ft_atoi(av[1]);
 	i = -1;
-	printf("Valeur de pid %d\n", pid);
 	while (av[2][++i])
 		send_bit(pid, av[2][i]);
 	send_bit(pid, '\0');
