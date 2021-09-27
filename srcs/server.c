@@ -6,7 +6,7 @@
 /*   By: mqueguin <mqueguin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 12:20:10 by mqueguin          #+#    #+#             */
-/*   Updated: 2021/08/17 16:38:33 by mqueguin         ###   ########.fr       */
+/*   Updated: 2021/09/27 13:22:05 by mqueguin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,17 @@ void	store_bit(int bit)
 		}
 		else
 			ft_print();
-	}	
+	}
 }
 
 void	ft_receive_bit(int sig, siginfo_t *si, void *arg)
 {
 	(void)arg;
 	(void)si;
+	g_buffer.pid = si->si_pid;
 	if (sig != SIGUSR1 && sig != SIGUSR2)
 	{
-		printf("Error\n");
+		write(2, "Error\nThe received signal is not SIGUSR1 or SIGUSR2\n", 52);
 		exit(0);
 	}
 	if (sig == SIGUSR1 || sig == SIGUSR2)
@@ -73,14 +74,21 @@ void	ft_receive_bit(int sig, siginfo_t *si, void *arg)
 int	main(void)
 {
 	struct sigaction	sa;
+	int					pid;
 
-	printf("The PID is : %d\n", getpid());
+	pid = getpid();
+	write(1, "The PID is : ", 13);
+	ft_putnbr_fd(pid, 1);
+	write(1, "\n", 1);
 	ft_init();
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &ft_receive_bit;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	while (1)
-		usleep(100);
+	while (42)
+	{
+		pause();
+		kill(g_buffer.pid, SIGUSR1);
+	}
 	return (0);
 }

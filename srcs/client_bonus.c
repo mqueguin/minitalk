@@ -6,7 +6,7 @@
 /*   By: mqueguin <mqueguin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 14:31:57 by mqueguin          #+#    #+#             */
-/*   Updated: 2021/08/30 13:15:38 by mqueguin         ###   ########.fr       */
+/*   Updated: 2021/09/27 12:31:40 by mqueguin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static	void	send_bit(int pid, unsigned char bit)
 		{
 			if (kill(pid, SIGUSR2) != 0)
 			{
-				printf("Error\nUnable to send signal\n");
+				write(2, "Error\nUnable to send signal\n", 28);
 				exit(0);
 			}
 		}
@@ -32,7 +32,7 @@ static	void	send_bit(int pid, unsigned char bit)
 		{
 			if (kill(pid, SIGUSR1) != 0)
 			{
-				printf("Error\nUnable to send signal\n");
+				write(2, "Error\nUnable to send signal\n", 43);
 				exit(0);
 			}
 		}
@@ -44,7 +44,7 @@ void	ft_handler(int sig, siginfo_t *si, void *arg)
 	(void)arg;
 	(void)sig;
 	(void)si;
-	printf("The message has been received !\n");
+	write(1, "The message has been received !\n", 32);
 	exit(0);
 }
 
@@ -58,7 +58,7 @@ int	main(int ac, char **av)
 	sigaction(SIGUSR1, &sa, NULL);
 	if (ac != 3)
 	{
-		printf("Error\nExpected 2 arguments: pid and string\n");
+		write(2, "Error\nExpected 2 arguments: pid and string\n", 43);
 		return (-1);
 	}
 	if (!ft_check_pid(av[1]))

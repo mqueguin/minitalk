@@ -6,7 +6,7 @@
 #    By: mqueguin <mqueguin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/18 12:30:22 by mqueguin          #+#    #+#              #
-#    Updated: 2021/08/18 13:04:07 by mqueguin         ###   ########.fr        #
+#    Updated: 2021/09/27 13:11:11 by mqueguin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,10 +45,10 @@ NAME_SERVER			=	server
 NAME_CLIENT_BONUS	=	client_Bonus
 NAME_SERVER_BONUS	=	server_Bonus
 
-LIBFT				=	libft.a
+LIBFT				=	libft/libft.a
 CC					=	gcc
 RM					=	rm -rf
-FLAGS				=	-Wall -Werror -Wextra
+FLAGS				=	-Wall -Werror -Wextra -g
 
 .c.o:
 				@${CC} ${FLAGS} -I${DIR_HEAD} -c $< -o ${<:.c=.o}
@@ -60,26 +60,22 @@ bonus:		${NAME_CLIENT_BONUS} ${NAME_SERVER_BONUS}
 
 ${NAME_CLIENT_BONUS}:	${OBJS_CLIENT_BONUS}
 			@make -C ${DIR_LIBFT}
-			@cp ${DIR_LIBFT}${LIBFT} ${LIBFT}
 			@${CC} ${FLAGS} -I${DIR_HEAD} -o ${NAME_CLIENT_BONUS} ${OBJS_CLIENT_BONUS} ${LIBFT}
 			@echo "\n\t\t${BOLD}${GREEN}Client_Bonus	has been created !${END}${END}\n"
 
 ${NAME_SERVER_BONUS}:	${OBJS_SERVER_BONUS}
 			@make -C ${DIR_LIBFT}
-			@cp ${DIR_LIBFT}${LIBFT} ${LIBFT}
 			@${CC} ${FLAGS} -I${DIR_HEAD} -o ${NAME_SERVER_BONUS} ${OBJS_SERVER_BONUS} ${LIBFT}
 			@echo "\n\t\t${BOLD}${GREEN}Server_Bonus	has been created !${END}${END}\n"
 
 ${NAME_CLIENT}:	${NAME_SERVER} ${OBJS_CLIENT}
 			@make -C ${DIR_LIBFT}
-			@cp ${DIR_LIBFT}${LIBFT} ${LIBFT}
 			@${CC} ${FLAGS} -I${DIR_HEAD} -o ${NAME_CLIENT} ${OBJS_CLIENT} ${LIBFT}
 			@echo "\n\t\t${BOLD}${GREEN}Client	has been created !${END}${END}\n"
 
 
 ${NAME_SERVER}:	${OBJS_SERVER}
 			@make -C ${DIR_LIBFT}
-			@cp ${DIR_LIBFT}${LIBFT} ${LIBFT}
 			@${CC} ${FLAGS} -I${DIR_HEAD} -o ${NAME_SERVER} ${OBJS_SERVER} ${LIBFT}
 			@echo "\n\t\t${BOLD}${GREEN}Server	has been created !${END}${END}\n"
 

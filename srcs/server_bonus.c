@@ -6,7 +6,7 @@
 /*   By: mqueguin <mqueguin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 12:20:10 by mqueguin          #+#    #+#             */
-/*   Updated: 2021/08/30 13:12:40 by mqueguin         ###   ########.fr       */
+/*   Updated: 2021/09/23 14:29:10 by mqueguin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_receive_bit(int sig, siginfo_t *si, void *arg)
 	(void)arg;
 	if (sig != SIGUSR1 && sig != SIGUSR2)
 	{
-		printf("Error\n");
+		printf("Error\nThe received signal is not SIGUSR1 or SIGUSR2\n");
 		exit(0);
 	}
 	if (sig == SIGUSR1 || sig == SIGUSR2)
